@@ -47,8 +47,503 @@
 -- /!\ le 1er champ de chaque table sera systematiquement un "ID" qui sera PK(Primay Key) et AI(Auto-Increment).
 
 
+-- Null /NOT NUll
+-- dans chaque champ nous pourrons indiquer si nous acceptons les valeurs NULL ou non (NOT NULL)
+-- NULL est un type de valeur en informatique évitant de laisser un champ vide si nous n'avons pas d'information à y déposer.
+
+-- LES RELATIONS
+-- exemple 1 membre commande 1 produit ( ou 1 produit est commandé par 1 membre)
+-- nous devrons enregistrer l'information dans 1 table commande
+-- pour cela, intéréssons nous aux cardinalités!!!!
+
+-- LES CARDINALITES
+-- permettent de connaitre les chiffre minimum et maximum d'enregistrement pour une relation.
+
+--TABLE DE JOINTURE
+-- une tables de jointure permet de faire le lien entre 2 tables.
+-- exemple: site de taxi qui posséderait des conducteurs ( table conducteur) et des vehicules (tables vehicule).
+
+-- 1 conducteur peut conduire 0 ou plusieurs vehicules
+-- relation (0,n),
+-- 1 vehicule peut etre conduit 0 ou plusieurs conducteurs
+-- relation (0,n),
+
+-- Comment savoir quel conducteur conduit quel vehicule ? ou dans l'autre sens : quel vehicule est conduit par quel conducteur ?
+
+-- Une table de jointure nommée : conducteur_vehicule sera donc créer avec les champs suivants:
+-- id_conducteur_vehicule 
+-- id_conducteur
+-- id_vehicule
+
+-- LES REQUETES 
+-- Comment formuler une requête SQL ? ---> Formulation --->Exécution --->Résultat
+-- Il y a 4 grands type de requêtes possibles
+-- 1-  Requete de selection 
+-- (requête question / reponse, Nous faisons une demande via question et nous abtenons une repose)
+-- 2-   Requete d'insertion
+-- (requête d'action, impact sur les données)
+-- 3-   Requete de modification
+-- (requête d'action, impact sur les données)
+-- 4-   Requete de suppression
+-- (requête d'action, impact sur les données) 
+
+--  /!\TOUJOURS UN POINT VIRGULE A LA FIN!!!
+
+-- CREATION DE MA TABLE EMPLOYE 
+
+CREATE TABLE IF NOT EXISTS employes(
+	id_employes int(3) NOT NULL AUTO_INCREMENT,
+	prenom varchar(20) DEFAULT NULL,
+	nom varchar(20) DEFAULT NULL,
+	sex enum('m','f') NOT NULL,
+	service varchar(30) DEFAULT NULL,
+	data_embauche date DEFAULT NULL,
+	salaire float DEFAULT NULL,
+	PRIMARY KEY(id_employes)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO employes (id_employes, prenom, nom, sex, service, data_embauche, salaire)
+VALUES
+(350, 'Jean-Pierre', 'Laborde', 'm', 'direction', '1999-12-09', 5000),
+(388,'Clement', 'Gallet', 'm', 'commercial', '2000-01-15', 2300),
+(415, 'Thomas', 'Winter', 'm', 'commercial', '2000-05-03', 3350),
+(417, 'Cloe', 'Dubar', 'f', 'production', '2001-09-05', 1900),
+(491, 'Elodie', 'Fellier', 'f', 'secretariat', '2002-02-22', 1600),
+(509, 'Celine', 'Perrin', 'f', 'commercial', '2006-09-10', 2700),
+(690, 'Mathieu', 'Vignal', 'm', 'informatique', '2008-11-17', 1500),
+(739, 'Thierry', 'Deprez', 'm', 'secretariat', '2009-11-17', 1900),
+(900, 'Benoit', 'Lagarde', 'm', 'production', '2013-01-03', 2550),
+(933, 'Emilie', 'Sennard', 'f', 'commercial', '2014-09-11', 1900),
+(990, 'Stephanie', 'Lafaye', 'f', 'assistant', '2015-06-02', 1775);
 
 
+--> Créer une base de données.
+CREATE DATABASE [nomdelabase]; /!\ Sans les [] !!!
+
+--> Utiliser une base de données
+USE [nomdelabase]; /!\ Sans les [] !!!
+
+--> Lister les bases de données
+SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| assatraore         |
+| cvwp               |
+| entreprise         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| test               |
++--------------------+
+
+--> Supprimer une BDD //  Supprimer une TABLE
+DROP [nomdelabase] // DROP [nomdelatable]; /!\ Sans les [] !!!
+
+--> Vider le contenu d'une table d'une BDD
+TRUNCATE [nomdelatable]; /!\ Sans les [] !!!
+
+--> Créer une table (dirigant)
+create table [dirigeant]; /!\ Sans les [] !!!
+
+--> Observer la structure d'une table
+DESH [nomdelatable]; /!\ Sans les [] !!!
+
+--> Pour afficher les nom et prénom ou ... dans l'entreprise 
+SELECT nom, prenom FROM employes;
++----------+-------------+
+| nom      | prenom      |
++----------+-------------+
+| Laborde  | Jean-Pierre |
+| Gallet   | Clement     |
+| Winter   | Thomas      |
+| Dubar    | Cloe        |
+| Fellier  | Elodie      |
+| Perrin   | Celine      |
+| Jaadar   | Houda       |
+| Herisson | Sandra      |
+| Vignal   | Mathieu     |
+| Deprez   | Thierry     |
+| Lagarde  | Benoit      |
+| Sennard  | Emilie      |
+| Lafaye   | Stephanie   |
+| Traore   | Assa        |
++----------+-------------+
+
+--> Pour afficher les services occupés dans l'entreprise (en evitant les doublants)
+SELECT DISTINCT(service) FROM employes;
++--------------+
+| service      |
++--------------+
+| direction    |
+| commercial   |
+| production   |
+| secretariat  |
+| formation    |
+| informatique |
+| assistant    |
+| develloppeur |
++--------------+
+
+--> Pour afficher toutes les colonnes dans employes 
+SELECT * FROM employes;
++-------------+-------------+----------+-----+--------------+---------------+---------+
+| id_employes | prenom      | nom      | sex | service      | data_embauche | salaire |
++-------------+-------------+----------+-----+--------------+---------------+---------+
+|         350 | Jean-Pierre | Laborde  | m   | direction    | 1999-12-09    |    5000 |
+|         388 | Clement     | Gallet   | m   | commercial   | 2000-01-15    |    2300 |
+|         415 | Thomas      | Winter   | m   | commercial   | 2000-05-03    |    3350 |
+|         417 | Cloe        | Dubar    | f   | production   | 2001-09-05    |    1900 |
+|         491 | Elodie      | Fellier  | f   | secretariat  | 2002-02-22    |    1600 |
+|         509 | Celine      | Perrin   | f   | commercial   | 2006-09-10    |    2700 |
+|         630 | Houda       | Jaadar   | f   | formation    | 2017-01-20    |    2500 |
+|         650 | Sandra      | Herisson | f   | formation    | 2018-09-24    |    1900 |
+|         690 | Mathieu     | Vignal   | m   | informatique | 2008-11-17    |    1500 |
+|         739 | Thierry     | Deprez   | m   | secretariat  | 2009-11-17    |    1900 |
+|         900 | Benoit      | Lagarde  | m   | production   | 2013-01-03    |    2550 |
+|         933 | Emilie      | Sennard  | f   | commercial   | 2014-09-11    |    1900 |
+|         990 | Stephanie   | Lafaye   | f   | assistant    | 2015-06-02    |    1775 |
+|         991 | Assa        | Traore   | f   | develloppeur | 2018-10-01    |    1100 |
++-------------+-------------+----------+-----+--------------+---------------+---------+
+
+--> Pour afficher seulement les employes du service informatique,
+SELECT nom, prenom FROM employes WHERE service='informatique';
++--------+---------+
+| nom    | prenom  |
++--------+---------+
+| Vignal | Mathieu |
++--------+---------+
+
+--> Pour afficher seulement les employes embauches de 2006 a 2010
+SELECT nom, prenom, data_embauche FROM employes WHERE data_embauche BETWEEN '2006-01-01' AND '2010-12-31';
++--------+---------+---------------+
+| nom    | prenom  | data_embauche |
++--------+---------+---------------+
+| Perrin | Celine  | 2006-09-10    |
+| Vignal | Mathieu | 2008-11-17    |
+| Deprez | Thierry | 2009-11-17    |
++--------+---------+---------------+
+
+--> Pour ajouter une nouvelle embauche
+INSERT INTO employes (id_employes, prenom, nom, sex, service, data_embauche, salaire)VALUES('', 'idir', 'igoudgir', 'm', 'coordinateur', '2018-12-12', 5000);
+
+---------------- EXPLICATION ----------------
+--> LIKE nous permet d'annoncer une valeur approchante sans avoir autant la valeur exacte.
+--> Le signe % nous permet d'annocer une suite de caractere quelconques.
+--> Dans notre cas, 'c%' veut dire qui commence par la lettre c.
+--> Nous aurons également pu inscrire '%c' qui veux dire qui termine par la lettre c
+
+--> Pour afficher tout les prenoms qui commence par c
+SELECT prenom FROM employes WHERE prenom LIKE 'c%';
++---------+
+| prenom  |
++---------+
+| Clement |
+| Cloe    |
+| Celine  |
++---------+
+
+--> Pour afficher tout les prenoms qui termine par e
+SELECT prenom FROM employes WHERE prenom LIKE '%e';
++-------------+
+| prenom      |
++-------------+
+| Jean-Pierre |
+| Cloe        |
+| Elodie      |
+| Celine      |
+| Emilie      |
+| Stephanie   |
++-------------+
+
+------- OPARATEUR DE COMPARAISONS -------
+-- = 'est égal'
+-- > 'strictement superieur'
+-- < 'strictement inférieur'
+-- >= 'supérieur ou égal'
+-- <= 'inférieur ou égal'
+-- <> ou != 'différent de'.
+
+-- Tous les salaires > 3000€
+SELECT nom, prenom, salaire FROM employes WHERE salaire > 3000;
++----------+-------------+---------+
+| nom      | prenom      | salaire |
++----------+-------------+---------+
+| Laborde  | Jean-Pierre |    5000 |
+| Winter   | Thomas      |    3350 |
+| igoudgir | idir        |    5000 |
++----------+-------------+---------+
+
+-- Tous les services sauf informatique
+SELECT nom, prenom, service FROM employes WHERE service <> 'informatique';
++----------+-------------+--------------+
+| nom      | prenom      | service      |
++----------+-------------+--------------+
+| Laborde  | Jean-Pierre | direction    |
+| Gallet   | Clement     | commercial   |
+| Winter   | Thomas      | commercial   |
+| Dubar    | Cloe        | production   |
+| Fellier  | Elodie      | secretariat  |
+| Perrin   | Celine      | commercial   |
+| Jaadar   | Houda       | formation    |
+| Herisson | Sandra      | formation    |
+| Deprez   | Thierry     | secretariat  |
+| Lagarde  | Benoit      | production   |
+| Sennard  | Emilie      | commercial   |
+| Lafaye   | Stephanie   | assistant    |
+| Traore   | Assa        | develloppeur |
+| igoudgir | idir        | coordinateur |
++----------+-------------+--------------+
+
+-- CLASSEMENT des Nom PAR ORDRE ALPHA
+SELECT nom FROM employes ORDER BY nom ;
+SELECT nom FROM employes ORDER BY nom ASC;
+SELECT nom FROM employes ORDER BY nom DESC;
++----------+
+| nom      |
++----------+
+| Deprez   |
+| Dubar    |
+| Fellier  |
+| Gallet   |
+| Herisson |
+| igoudgir |
+| Jaadar   |
+| Laborde  |
+| Lafaye   |
+| Lagarde  |
+| Perrin   |
+| Sennard  |
+| Traore   |
+| Vignal   |
+| Winter   |
++----------+
+
+-- Classement par salaire 
+SELECT nom, prenom, service, salaire FROM employes ORDER BY salaire DESC;
++----------+-------------+--------------+---------+
+| nom      | prenom      | service      | salaire |
++----------+-------------+--------------+---------+
+| Laborde  | Jean-Pierre | direction    |    5000 |
+| igoudgir | idir        | coordinateur |    5000 |
+| Winter   | Thomas      | commercial   |    3350 |
+| Perrin   | Celine      | commercial   |    2700 |
+| Lagarde  | Benoit      | production   |    2550 |
+| Jaadar   | Houda       | formation    |    2500 |
+| Gallet   | Clement     | commercial   |    2300 |
+| Sennard  | Emilie      | commercial   |    1900 |
+| Deprez   | Thierry     | secretariat  |    1900 |
+| Herisson | Sandra      | formation    |    1900 |
+| Dubar    | Cloe        | production   |    1900 |
+| Lafaye   | Stephanie   | assistant    |    1775 |
+| Fellier  | Elodie      | secretariat  |    1600 |
+| Vignal   | Mathieu     | informatique |    1500 |
+| Traore   | Assa        | develloppeur |    1100 |
++----------+-------------+--------------+---------+
+
+-- Classement par salaire de la ligne 3 et seulement 3 (LIMIT 3,3)
+SELECT nom, prenom, service, salaire FROM employes ORDER BY salaire DESC LIMIT 3,3;
++---------+--------+------------+---------+
+| nom     | prenom | service    | salaire |
++---------+--------+------------+---------+
+| Perrin  | Celine | commercial |    2700 |
+| Lagarde | Benoit | production |    2550 |
+| Jaadar  | Houda  | formation  |    2500 |
++---------+--------+------------+---------+
+
+-----------------CALCULS DANS NOS REQUETES-----------------
+-- Afficher le salaire annuel de chaque employés
+SELECT nom, prenom, salaire*12 FROM employes;
++----------+-------------+------------+
+| nom      | prenom      | salaire*12 |
++----------+-------------+------------+
+| Laborde  | Jean-Pierre |      60000 |
+| Gallet   | Clement     |      27600 |
+| Winter   | Thomas      |      40200 |
+| Dubar    | Cloe        |      22800 |
+| Fellier  | Elodie      |      19200 |
+| Perrin   | Celine      |      32400 |
+| Jaadar   | Houda       |      30000 |
+| Herisson | Sandra      |      22800 |
+| Vignal   | Mathieu     |      18000 |
+| Deprez   | Thierry     |      22800 |
+| Lagarde  | Benoit      |      30600 |
+| Sennard  | Emilie      |      22800 |
+| Lafaye   | Stephanie   |      21300 |
+| Traore   | Assa        |      13200 |
+| igoudgir | idir        |      60000 |
++----------+-------------+------------+
+
+-- pour modifier salaire*12 
+SELECT nom, prenom, salaire*12 AS salaire_annuel  FROM employes;
++----------+-------------+----------------+
+| nom      | prenom      | salaire_annuel |
++----------+-------------+----------------+
+
+-- Afficher la somme des salaire de tous les employes
+SELECT SUM(salaire*12) FROM employes;
++-----------------+
+| SUM(salaire*12) |
++-----------------+
+|          443700 |
++-----------------+
+
+-- Afficher la moyenne
+-- AVG est une fonction prédéfinie prenant comme argument( entre parenthese) le nom de la colone sur laquelle nous souhaitons calculer une moyenne
+SELECT AVG(salaire) FROM employes;
++--------------+
+| AVG(salaire) |
++--------------+
+|         2465 |
++--------------+
+
+-- ROUND est une fonction prédéfinie prenant comme argument( entre parenthese) le nombre à arrondir.
+SELECT ROUND(AVG(salaire)) FROM employes;
++---------------------+
+| ROUND(AVG(salaire)) |
++---------------------+
+|                2465 |
++---------------------+
 
 
+-- COUNT est une fonction qui permet de compter
+SELECT COUNT(*) FROM employes WHERE sex='f';
++----------+
+| COUNT(*) |
++----------+
+|        8 |
++----------+
+
+-- Isoler une valeur min ou max avec MIN/MAX
+SELECT MAX(salaire) FROM employes;
++--------------+
+| MAX(salaire) |
++--------------+
+|         5000 |
++--------------+
+
+SELECT MIN(salaire) FROM employes;
++--------------+
+| MIN(salaire) |
++--------------+
+|         1100 |
++--------------+
+
+-- Pour avoir le salaire min et le nom de la personne 
+SELECT prenom, salaire FROM employes WHERE salaire = (SELECT MIN(salaire)FROM employes);
++--------+---------+
+| prenom | salaire |
++--------+---------+
+| Assa   |    1100 |
++--------+---------+
+
+-- Salaire égal a 5000
+SELECT prenom, salaire FROM employes WHERE salaire = 5000;
++-------------+---------+
+| prenom      | salaire |
++-------------+---------+
+| Jean-Pierre |    5000 |
+| idir        |    5000 |
++-------------+---------+
+
+Tous les postes sauf (/!\ le = attend un seul information)
+SELECT prenom, service FROM employes WHERE service NOT IN ('informatique', 'direction');
++-----------+--------------+
+| prenom    | service      |
++-----------+--------------+
+| Clement   | commercial   |
+| Thomas    | commercial   |
+| Cloe      | production   |
+| Elodie    | secretariat  |
+| Celine    | commercial   |
+| Houda     | formation    |
+| Sandra    | formation    |
+| Thierry   | secretariat  |
+| Benoit    | production   |
+| Emilie    | commercial   |
+| Stephanie | assistant    |
+| Assa      | develloppeur |
+| idir      | coordinateur |
++-----------+--------------+
+
+SELECT prenom, nom, service, salaire FROM employes WHERE service='production' AND salaire=1900 OR salaire=2300; 
++---------+--------+------------+---------+
+| prenom  | nom    | service    | salaire |
++---------+--------+------------+---------+
+| Clement | Gallet | commercial |    2300 |
+| Cloe    | Dubar  | production |    1900 |
++---------+--------+------------+---------+
+
+SELECT prenom, nom, service, salaire FROM employes WHERE service='production' AND (salaire=1900 OR salaire=2300); 
++--------+-------+------------+---------+
+| prenom | nom   | service    | salaire |
++--------+-------+------------+---------+
+| Cloe   | Dubar | production |    1900 |
++--------+-------+------------+---------+
+
+-- Compte les personne par service
+ SELECT service, COUNT(*) AS nombre FROM employes GROUP BY service;
++--------------+--------+
+| service      | nombre |
++--------------+--------+
+| assistant    |      1 |
+| commercial   |      4 |
+| coordinateur |      1 |
+| develloppeur |      1 |
+| direction    |      1 |
+| formation    |      2 |
+| informatique |      1 |
+| production   |      2 |
+| secretariat  |      2 |
++--------------+--------+
+
+-- Service avec plus de 1 employes 
+SELECT service, COUNT(*) AS nombre FROM employes GROUP BY service HAVING COUNT(*) >1;
++-------------+--------+
+| service     | nombre |
++-------------+--------+
+| commercial  |      4 |
+| formation   |      2 |
+| production  |      2 |
+| secretariat |      2 |
++-------------+--------+
+
+-- Pour insertion
+INSERT INTO employes (prenom, nom, sex, service, data_embauche, salaire) VALUES('Mariam', 'Camara', 'f', 'informatique', '1994-11-16', 9000);
+
+INSERT INTO employes VALUES ('','Hatou-Massa', 'Traore', 'f', 'informatique', '1993-11-27', 8900);
+
+-- Modifier salaire
+UPDATE employes SET salaire = 2500 WHERE prenom = 'Hatou-Massa'; 
+
++-------------+-------------+----------+-----+--------------+---------------+---------+
+| id_employes | prenom      | nom      | sex | service      | data_embauche | salaire |
++-------------+-------------+----------+-----+--------------+---------------+---------+
+|         993 | Mariam      | Camara   | f   | informatique | 1994-11-16    |    9000 |
+|         994 | Hatou-Massa | Traore   | f   | informatique | 1993-11-27    |    2500 |
++-------------+-------------+----------+-----+--------------+---------------+---------+
+
+-- Supprimer par ID
+DELETE FROM employes WHERE id_employes = 933;
+
+-- Supprimer par services
+DELETE FROM employes WHERE service = 'informatique';
++-------------+-------------+----------+-----+--------------+---------------+---------+
+| id_employes | prenom      | nom      | sex | service      | data_embauche | salaire |
++-------------+-------------+----------+-----+--------------+---------------+---------+
+|         350 | Jean-Pierre | Laborde  | m   | direction    | 1999-12-09    |    5000 |
+|         388 | Clement     | Gallet   | m   | commercial   | 2000-01-15    |    2300 |
+|         415 | Thomas      | Winter   | m   | commercial   | 2000-05-03    |    3350 |
+|         417 | Cloe        | Dubar    | f   | production   | 2001-09-05    |    1900 |
+|         491 | Elodie      | Fellier  | f   | secretariat  | 2002-02-22    |    1600 |
+|         509 | Celine      | Perrin   | f   | commercial   | 2006-09-10    |    2700 |
+|         630 | Houda       | Jaadar   | f   | formation    | 2017-01-20    |    2500 |
+|         650 | Sandra      | Herisson | f   | formation    | 2018-09-24    |    1900 |
+|         739 | Thierry     | Deprez   | m   | secretariat  | 2009-11-17    |    1900 |
+|         900 | Benoit      | Lagarde  | m   | production   | 2013-01-03    |    2550 |
+|         990 | Stephanie   | Lafaye   | f   | assistant    | 2015-06-02    |    1775 |
+|         991 | Assa        | Traore   | f   | develloppeur | 2018-10-01    |    1100 |
+|         992 | idir        | igoudgir | m   | coordinateur | 2018-12-12    |    5000 |
++-------------+-------------+----------+-----+--------------+---------------+---------+
 
