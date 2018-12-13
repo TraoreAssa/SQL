@@ -547,3 +547,32 @@ DELETE FROM employes WHERE service = 'informatique';
 |         992 | idir        | igoudgir | m   | coordinateur | 2018-12-12    |    5000 |
 +-------------+-------------+----------+-----+--------------+---------------+---------+
 
+
+-- --EXERCICE-- --
+    --1 Afficher la profession de l'employé 547.
+    --2 Afficher la date d'embauche de : Amandine.
+    --3 Afficher le nombre de commerciaux.
+    --4 Afficher le coût des commerciaux sur 1 année.
+    --5 Afficher le salaire moyen par service.
+    --6 Afficher le nombre de recrutements sur l'année 2010.
+    --7 Augmenter le salaire pour chaque employé de 100€.
+    --8 Afficher le nombre de services (différents).
+    --9 Afficher les informations de l'employé du service commercial gagnant le salaire le plus élevé
+    --10 Afficher l'employé ayant été embauché en dernier.
+
+
+-- MEMO SUR LES REQUETES DE SELECTION SELECT
+    -- SELECT / FROM / DISTINCT / WHERE / BETWEEN / CURDATE / LIKE / % / OPERATEUR DE COMPARAISON / ORDER BY / ASC / DESC / LIMIT / AS pour l'alias / SUM / AVG / ROUND / COUNT / MIN / MAX / IN / NOT IN / CONDITION MULTIPLE / HAVING /
+-- MEMO SUR LES REQUETES DE SELECTION INSERT
+    -- INSERT IN .... VALUES
+-- MEMO SUR LES REQUETES DE SELECTION UPDATE
+    --UPDATE..... SET....WHERE
+-- MEMO SUR LES REQUETES DE SELECTION DELETE
+    --DELETE FROM...WHERE....
+-- EXERCICE REQUETES IMBRIQUEES
+-- LES JOINTURES SQL
+    -- Tout comme les requêtes imbriquées, les jointures SQL permettent d'effectuer des requêtes sur plusieurs tables.
+    --l'avantage des jointures est que l'on peut obtenir dans le résulat final des colonnes/champ issue de plusieur tables différentes.
+
+
+
