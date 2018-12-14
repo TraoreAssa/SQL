@@ -203,7 +203,8 @@ WHERE ab.id_abonne=em.id_abonne;
 | Laura     |      103 |
 +-----------+----------+
 
--- Jointure EXTERNE
+--*********************************** Jointure EXTERNE ***********************************--
+
 -- Afficher le prenom des abonnés avec le numéro des livres qu'ils ont emprunté. 
 SELECT abonne.prenom, emprunt.id_livre
 FROM abonne LEFT JOIN emprunt -- FROM- LEFT JOIN la table placée à gauche rapatriés (sans correspondance exigée dans l'autre table)
@@ -306,3 +307,19 @@ SELECT PASSWORD('mypass');
 +-------------------------------------------+
 | *6C8989366EAF75BB670AD8EA7A7FC1176A95CEF4 |
 +-------------------------------------------+
+
+
+
+--------------------- FONCTIONS UTILISATEURS ---------------------
+
+
+
+
+
+
+
+
+
+
+
+

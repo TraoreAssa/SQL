@@ -18,7 +18,7 @@
 -- avant de créer un BDD, il est essenciel de se poser et reflechir sur la modélisation
 -- En effet, une base de donnée va servir de support a une application informatique.
 -- Comment modéliser une BDD ?
--- Nous pouvons modéliser sur papier si celle-ci n'est pas complexe mais da,ns la plupart des ces nous aurons besoin d'un logiciel pour accompagner et avoir une vue d'ensemble.
+-- Nous pouvons modéliser sur papier si celle-ci n'est pas complexe mais dans la plupart des ces nous aurons besoin d'un logiciel pour accompagner et avoir une vue d'ensemble.
 -- unlogiciel connu permet de modéliser une BDD : Mysql WorkBesnch
 
 -- la modélisation se compose de différentes tables (table = sujet)
@@ -123,7 +123,7 @@ CREATE DATABASE [nomdelabase]; /!\ Sans les [] !!!
 --> Utiliser une base de données
 USE [nomdelabase]; /!\ Sans les [] !!!
 
---> Lister les bases de données
+--> Lister les bases de données 
 SHOW DATABASES;
 +--------------------+
 | Database           |
